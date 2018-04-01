@@ -37,7 +37,7 @@ def getBilibiliUserDetails (accesskey):
 
     #exceptions handler
     if status != "OK":
-        print('Failed to log in to Bilibili.\nState:' + ststus)
+        print('Failed to log in to Bilibili.\nState:' + status)
         return [status]
     else:
         print('Welcome to Bilibili, ' + uname + '.\n')
@@ -60,7 +60,7 @@ def readBilibiliUserDetails(filename):
     if not filename:
         file = "userdetails.txt"
     else:
-        file = "filename"
+        file = filename
 
     file.open(filename, "r")
     serverResponse = file.json()
