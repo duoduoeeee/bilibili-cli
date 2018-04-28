@@ -2,9 +2,42 @@ import requests
 import json
 import collections
 import os
+import getpass
 
+def getBilibiliLoginStateByCaptcha ():
+    print ("Proceeding with username/password combination.")
+    print ("Requesting captcha image...")
+    requestURL = requests.get("https://passport.bilibili.com/captcha")
+    captcha = open("captcha.jpeg", "w+")
+    captcha.write(requestURL)
+    captcha.close()
+    print ("Please open up the captcha.jpeg file just located at current directory, and fill the following login credentials.")
+    email = input("Email address:")
+    password = getpass.getpass(prompt='Password: ', stream=None)
+    captcha = input("Captcha:")
+    
+    payload = {
+        'type' : 'access_key',
+        'email' : email,
+        'password' : password,
+        'captcha' : captcha,
+        }
+    r1 = requests.post('https://bilibili.zrhdwz.cn/request/api.php', params=payload)
+    bililogin = requests.get(r1)['url']
+    r2 = requests.get(bililogin)
+    if r2['code'] != 0 
+        print ("Server failed (" + r2['code'] + "). Message: " + r2['message'])
+    else
+        accesskey = r2['access_key']
+        mid = r2['mid']
+        print ('accesskey: ' + accesskey)
+        print ('mid:' + mid)
+        
+        
+    
+    
 def getBilibiliLoginState (accesskey):
-    print ("Proceeding with access key.\n")
+    print ("Proceeding with access key.")
     payload = {
         'type' : "cookie",
         'access_key' : accesskey
