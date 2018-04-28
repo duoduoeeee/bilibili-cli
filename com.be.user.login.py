@@ -5,8 +5,11 @@ import os
 
 def getBilibiliLoginState (accesskey):
     print ("Proceeding with access key.\n")
-    payload = {'access_key' : accesskey}
-    r1 = requests.post("https://bilibili.zrhdwz.cn/cookie", params=payload)
+    payload = {
+        'type' : "cookie",
+        'access_key' : accesskey
+    }
+    r1 = requests.post("https://bilibili.zrhdwz.cn/request/api.php", params=payload)
     r2 = requests.get(requests.get(r1).json()['url'])
     cookie = r2.cookies
     if cookie:
