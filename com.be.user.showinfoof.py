@@ -42,7 +42,7 @@ def getCurrentUserDetails(filename):
     jvipState = vipState.json()
     jupStat = upStat.json()
     
-    return
+    return [jcoinVideos, jbangumiList, jsubmitVideos, jfavFolders, jchannels, jvipState, jupStat]
     
 def getSpecifiedUserDetails(mid):
     if not mid:

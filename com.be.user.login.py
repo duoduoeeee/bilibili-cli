@@ -7,7 +7,7 @@ def getBilibiliLoginState (accesskey):
     print ("Proceeding with access key.\n")
     payload = {'access_key' : accesskey}
     r1 = requests.post("https://bilibili.zrhdwz.cn/cookie", params=payload)
-    r2 = requests.get(requests.get(r1).json()[url])
+    r2 = requests.get(requests.get(r1).json()['url'])
     cookie = r2.cookies
     if cookie:
         file = open("cookie.txt", "w+")
@@ -24,16 +24,16 @@ def getBilibiliUserDetails (accesskey):
     payload = {'access_key' : accesskey}
     requestURL = requests.get("https://api.kaaass.net/biliapi/user/info", params=payload)
     serverResponse = requestURL.json()
-    ts = serverResponse[ts]
-    status = serverResponse[status]
-    mid = serverResponse[info][mid]
-    appid = serverResponse[info][appid]
-    access_key = serverResponse[info][access_key]
-    create_at = serverResponse[info][create_at]
-    userid = serverResponse[info][userid]
-    uname = serverResponse[info][uname]
-    expires = serverResponse[info][expires]
-    permission = serverResponse[info][permission]
+    ts = serverResponse['ts']
+    status = serverResponse['status']
+    mid = serverResponse['info']['mid']
+    appid = serverResponse['info']['appid']
+    access_key = serverResponse['info']['access_key']
+    create_at = serverResponse['info']['create_at']
+    userid = serverResponse['info']['userid']
+    uname = serverResponse['info']['uname']
+    expires = serverResponse['info']['expires']
+    permission = serverResponse['info']['permission']
 
     #exceptions handler
     if status != "OK":
@@ -64,25 +64,25 @@ def readBilibiliUserDetails(filename):
 
     file.open(filename, "r")
     serverResponse = file.json()
-    ts = serverResponse[ts]
-    status = serverResponse[status]
-    mid = serverResponse[info][mid]
-    appid = serverResponse[info][appid]
-    access_key = serverResponse[info][access_key]
-    create_at = serverResponse[info][create_at]
-    userid = serverResponse[info][userid]
-    uname = serverResponse[info][uname]
-    expires = serverResponse[info][expires]
-    permission = serverResponse[info][permission]
+    ts = serverResponse['ts']
+    status = serverResponse['status']
+    mid = serverResponse['info']['mid']
+    appid = serverResponse['info']['appid']
+    access_key = serverResponse['info']['access_key']
+    create_at = serverResponse['info']['create_at']
+    userid = serverResponse['info']['userid']
+    uname = serverResponse['info']['uname']
+    expires = serverResponse['info']['expires']
+    permission = serverResponse['info']['permission']
     file.close()
     return [ts, status, mid, appid, access_key, create_at, userid, uname, expires, permission]
 
 def deleteBilibiliLoginState(cookie, loginstate):
     file.open(loginstate, "r")
     serverResponse = file.json()
-    mid = serverResponse[info][mid]
-    userid = serverResponse[info][userid]
-    uname = serverResponse[info][uname]
+    mid = serverResponse['info']['mid']
+    userid = serverResponse['info']['userid']
+    uname = serverResponse['info']['uname']
     file.close()
     print ("Deleting states of " + uname + "(" + userid + "," + mid + ")" + "...")
     os.remove(cookie)
